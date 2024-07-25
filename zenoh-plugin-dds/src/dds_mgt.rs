@@ -75,7 +75,7 @@ unsafe extern "C" fn on_data(dr: dds_entity_t, arg: *mut std::os::raw::c_void) {
         dr,
         samples.as_mut_ptr() as *mut *mut raw::c_void,
         si.as_mut_ptr() as *mut dds_sample_info_t,
-        MAX_SAMPLES.into(),
+        MAX_SAMPLES.try_into().unwrap(),
         MAX_SAMPLES,
     );
     let si = si.assume_init();

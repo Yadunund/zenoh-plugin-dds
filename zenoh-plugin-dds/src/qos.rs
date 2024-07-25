@@ -169,12 +169,12 @@ impl Qos {
             };
 
             // userdata
-            let mut sz: size_t = 0;
+            let mut sz: usize = 0;
             let mut value: *mut ::std::os::raw::c_void = std::ptr::null_mut();
             let userdata = if dds_qget_userdata(
                 qos,
                 &mut value as *mut *mut ::std::os::raw::c_void,
-                &mut sz as *mut size_t,
+                &mut sz as *mut usize,
             ) {
                 Vec::from_raw_parts(
                     value as *mut ::std::os::raw::c_uchar,
@@ -305,7 +305,7 @@ impl Qos {
             // userdata
             if !self.userdata.is_empty() {
                 let (ptr, len, _) = vec_into_raw_parts(self.userdata.clone());
-                dds_qset_userdata(qos, ptr as *const ::std::os::raw::c_void, len as size_t);
+                dds_qset_userdata(qos, ptr as *const ::std::os::raw::c_void, len as usize);
             }
             // ignore_local_participant
             if self.ignore_local_participant {

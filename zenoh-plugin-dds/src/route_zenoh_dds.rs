@@ -14,7 +14,7 @@
 
 use cyclors::{
     cdds_create_blob_sertype, cdds_ddsi_payload_create, cdds_sertype_unref, dds_entity_t,
-    dds_writecdr, ddsi_serdata, ddsi_serdata_kind_SDK_DATA, ddsi_sertype, size_t,
+    dds_writecdr, ddsi_serdata, ddsi_serdata_kind_SDK_DATA, ddsi_sertype,
 };
 use serde::{Serialize, Serializer};
 use std::collections::HashSet;
@@ -398,7 +398,7 @@ fn do_route_data(s: Sample, topic_name: &str, sertype: &SendSerType, data_writer
         // that is not necessarily safe or guaranteed to be leak free.
         // TODO replace when stable https://github.com/rust-lang/rust/issues/65816
         let (ptr, len, capacity) = vec_into_raw_parts(bs);
-        let size: size_t = match len.try_into() {
+        let size: usize = match len.try_into() {
             Ok(s) => s,
             Err(_) => {
                 log::warn!(
